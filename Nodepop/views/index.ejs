@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <br>
+    <h3>LISTA DE ANUNCIOS:%></h3>
+    <p><% results.forEach( producto => { %> 
+      <h4><%= producto.nombre %></h4>
+      <ul>
+        <li>
+          <% if (producto.venta) { %>
+            Se Vende
+          <% } %>
+          <% if (producto.venta === false) { %>
+            Se Busca
+          <% } %>
+        </li>
+
+        <li>Precio: <%= producto.precio %>€</li>
+        <li>Foto: <%= producto.foto %> </li>
+        <li>Tags: <% producto.tags.forEach( (tag, i) => { %> 
+          
+          <% if  (i+1 < producto.tags.length) { %>
+            <%= tag %>,
+          <% } %>
+
+          <% if  (i+1 === producto.tags.length) { %>
+            <%= tag %>
+          <% } %>
+          
+          <% }) %>
+        </li>
+      </ul>
+      <% }) %>
+    </p>
+  
+  </body>
+</html>
