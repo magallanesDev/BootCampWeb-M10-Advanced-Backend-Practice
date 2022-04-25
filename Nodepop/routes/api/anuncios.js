@@ -19,6 +19,8 @@ router.get('/', async (req, res, next) => {
     const select = req.query.select; // seleccionamos los campos deseados
     const sort = req.query.sort;
 
+    console.log('El usuario que ha hecho esta petición tiene el _id:', req.apiUserId);
+
     const filtros = {};
 
     if (nombre) {

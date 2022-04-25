@@ -4,12 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const LoginController = require('./controllers/loginController');
+const jwtAuth = require('./lib/jwtAuth');
+
 const { isAPIRequest } = require('./lib/utils');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//var usersRouter = require('./routes/users');
 
 var app = express();
+const loginController = new LoginController();
 
 require('./lib/connectMongoose');
 
@@ -28,11 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Rutas de mi API
- app.use('/api/anuncios', require('./routes/api/anuncios'));
+app.post('/api/authenticate', loginController.postJWT)
+app.use('/api/anuncios', jwtAuth, require('./routes/api/anuncios'));
 
 // Rutas de mi website
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler

@@ -1,13 +1,16 @@
 'use strict';
 
+import './loadEnv.mjs'
+
 import fsPromise from 'fs/promises';
 import readline from 'readline';
 
 // conexión a la base de datos
 import dbConnection from "./lib/connectMongoose.js";
 
-// cargar modelo
+// cargar modelos
 import Anuncio from './models/Anuncio.js';
+import Usuario from './models/Usuario.js';
 
 dbConnection.once('open', () => {
   main().catch(err => console.log('Hubo un error', err));
@@ -21,12 +24,38 @@ async function main() {
     process.exit(0);
   }
 
-  // inicializar agentes
+  // inicializar anuncios
   await initAnuncios();
+
+  // inicializar usuarios
+  await initUsuarios();
 
   // desconectar la base de datos
   dbConnection.close();
 }
+
+async function initUsuarios() {
+  // borrar los usuarios existentes
+  const deleted = await Usuario.deleteMany();
+  console.log(`Eliminados ${deleted.deletedCount} usuarios.`);
+
+  // crear usuarios
+  const usuarios = await Usuario.insertMany([
+    {
+      email: 'admin@example.com',
+      password: await Usuario.hashPassword('1234'),
+      rol: 'admin'
+    },
+    {
+      email: 'user@example.com',
+      password: await Usuario.hashPassword('1234'),
+      rol: 'user'
+    }
+  ]);
+  console.log(`Creados ${usuarios.length} usuarios.`);
+}
+
+
 
 async function initAnuncios() {
   // borrar todos los documentos de anuncios que haya en la colección
@@ -36,7 +65,7 @@ async function initAnuncios() {
   const data = await fsPromise.readFile('initDB.anuncios.json', 'utf-8');
   const anuncioData = JSON.parse(data);
 
-  // crear agentes iniciales
+  // crear anuncios iniciales
   const anuncios = await Anuncio.insertMany(anuncioData);
   console.log(`Creados ${anuncios.length} anuncios.`);
 }
