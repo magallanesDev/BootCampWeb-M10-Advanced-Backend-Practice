@@ -8,6 +8,12 @@ npm install
 
 In production:
 
+Copy .env.example to .env and set config values
+
+```sh
+cp .env.example .env
+```
+
 ```sh
 npm start
 ```
@@ -32,42 +38,49 @@ npm run initdb
 
 El API se accede en /api
 
+Autenticación con JWT. Obtenemos un TOKEN con la siguiente petición POST al pasar un usuario válido en el body ( email y password):
+
+POST  /api/authenticate
+
+
+Despué habría que pasar ese TOKEN en la petición (query string, headers o body)
+
 Lista de anuncios:
 
-- /api/anuncios
+- GET  /api/anuncios
 
 FILTROS:
 Por nombre podemos poner la/s primera/s letra/s.
 Por tipo de anuncio, venta (venta=true) o búsqueda (venta=false).
 Por precio.
 Por tag
-- http://localhost:3000/api/anuncios/?nombre=Bic&venta=true&precio=230.15&tag=motor
+- /api/anuncios/?nombre=Bic&venta=true&precio=230.15&tag=motor
 
 Paginación:
-- http://localhost:3000/api/anuncios/?skip=1&limit=2
+- /api/anuncios/?skip=1&limit=2
 
 Eligiendo qué campos queremos:
-- http://localhost:3000/api/anuncios/?select=nombre -_id precio
+- /api/anuncios/?select=nombre -_id precio
 
 Ordenación:
-- http://localhost:3000/api/anuncios/?sort=nombre precio
+- /api/anuncios/?sort=nombre precio
 
 
 Buscar un anuncio por ID:
 
-- /api/anuncios/:id
+- GET  /api/anuncios/id
 
 Crear un anuncio:
 
-- POST /api/anuncios
+- POST  /api/anuncios
 
-Eliminar un anuncio:
+Eliminar un anuncio por ID:
 
-- DELETE /api/anuncios/:id
+- DELETE  /api/anuncios/id
 
-Modifica un anuncio:
+Modifica un anuncio por ID:
 
-- PUT /api/anuncios/:id
+- PUT  /api/anuncios/id
 
 
 ## Página Web

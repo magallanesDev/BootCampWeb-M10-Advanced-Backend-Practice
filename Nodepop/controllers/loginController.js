@@ -5,12 +5,6 @@ const { Usuario } = require('../models');
 
 class LoginController {
   
-  /*index(req, res, next) {
-    //res.locals.email = '';
-    //res.locals.error = '';
-    //res.render('login');
-  }*/
-
   // login post desde API que retorna JWT
   async postJWT(req, res, next) {
     try {

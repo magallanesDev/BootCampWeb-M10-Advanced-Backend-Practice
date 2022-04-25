@@ -48,7 +48,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET  /api/anuncios/:id
+// GET  /api/anuncios/id
 // Devuelve un anuncio
 router.get('/:id', async (req, res, next) => {
   try {
@@ -85,7 +85,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// DELETE  /api/anuncios/:id
+// DELETE  /api/anuncios/id
 // Elimina un anuncio
 router.delete('/:id', async (req, res, next) => {
   try {
@@ -100,7 +100,7 @@ router.delete('/:id', async (req, res, next) => {
 
 })
 
-// PUT  /api/anuncios/:id
+// PUT  /api/anuncios/id
 // Modifica un anuncio
 router.put('/:id', async (req, res, next) => {
   try {

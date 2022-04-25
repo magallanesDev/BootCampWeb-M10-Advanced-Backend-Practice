@@ -19,7 +19,7 @@ dbConnection.once('open', () => {
 
 async function main() {
 
-  const borrar = await pregunta('Estas seguro de que quieres borrar la base de datos? ');
+  const borrar = await pregunta('Estas seguro de que quieres borrar la base de datos? (si/no)  ');
   if (!borrar) {
     process.exit(0);
   }
