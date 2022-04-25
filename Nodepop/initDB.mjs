@@ -56,7 +56,6 @@ async function initUsuarios() {
 }
 
 
-
 async function initAnuncios() {
   // borrar todos los documentos de anuncios que haya en la colección
   const deleted = await Anuncio.deleteMany();

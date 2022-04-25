@@ -5,14 +5,8 @@ var router = express.Router();
 
 const Anuncio = require('../models/Anuncio');
 
+
 /* GET home page. */
-
-/*
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Nodepop' });
-});
-*/
-
 
 router.get('/', async (req, res, next) => {
   try {
