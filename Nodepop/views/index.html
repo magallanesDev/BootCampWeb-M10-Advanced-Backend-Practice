@@ -6,9 +6,15 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h3>
+      <% getLocales().forEach(locale => { %>
+      <a href="/change-locale/<%= locale %>"><%= locale %></a>&nbsp&nbsp;
+      <% }) %>
+    </h3>
+    
+    <h2> <%= __('Welcome to') %> <%= title %></h2>
     <br>
-    <h3>LISTA DE ANUNCIOS:%></h3>
+    <h3> <%= __('AD LIST') %>:</h3>
     <p><% results.forEach( producto => { %> 
       <h4><%= producto.nombre %></h4>
       <ul>

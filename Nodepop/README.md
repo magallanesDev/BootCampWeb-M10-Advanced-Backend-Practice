@@ -1,3 +1,9 @@
+## Información de cómo arrancar un servidor de MongoDB
+
+```sh
+./bin/mongod --dbpath ./data/db
+```
+
 # Nodepop
 
 To start the application use:
@@ -32,7 +38,7 @@ Para inicializar la BD al estado inicial, se puede usar el comando:
 npm run initdb
 ```
 
-***ATENCIÓN*** - Esto borrará todos los datos de la BD y cargará el estado inicial.   
+***ATENCIÓN*** - Esto borrará todos los datos de la BD y cargará el estado inicial, una muestra con 3 anuncios y 2 usuarios (user@example.com y admin@example.com).   
 
 ## Métodos del API
 
@@ -43,7 +49,7 @@ Autenticación con JWT. Obtenemos un TOKEN con la siguiente petición POST al pa
 POST  /api/authenticate
 
 
-Despué habría que pasar ese TOKEN en la petición (query string, headers o body)
+Después habría que pasar ese TOKEN en la petición (query string, headers o body)
 
 Lista de anuncios:
 
@@ -85,7 +91,7 @@ Modifica un anuncio por ID:
 
 ## Página Web
 
-Para entrar en la página web, mostrándonos la lista de anuncios:
+Para entrar en la página web, mostrándonos la lista de anuncios (no hace falta autenticación):
 - http://localhost:3000
 
 FILTROS:
