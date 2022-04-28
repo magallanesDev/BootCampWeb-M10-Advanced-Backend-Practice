@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/api/authenticate', loginController.postJWT)
 app.use('/api/anuncios', jwtAuth, require('./routes/api/anuncios'));
 
+
 // Setup de i18n
 app.use(i18n.init)
 

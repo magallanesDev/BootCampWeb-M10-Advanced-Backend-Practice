@@ -28,7 +28,7 @@
         </li>
 
         <li>Precio: <%= producto.precio %>€</li>
-        <li>Foto: <%= producto.foto %> </li>
+        <li>Foto: <a href="http://localhost:3000/<%= producto.foto %>">http://localhost:3000/<%= producto.foto %></a> </li>
         <li>Tags: <% producto.tags.forEach( (tag, i) => { %> 
           
           <% if  (i+1 < producto.tags.length) { %>

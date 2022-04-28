@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+const multer = require('multer');
+const upload = multer({ dest: './public/images/anuncios/' });
 const createError = require('http-errors');
 const Anuncio = require('../../models/Anuncio');
 
@@ -69,9 +71,17 @@ router.get('/:id', async (req, res, next) => {
 
 // POST  /api/anuncios
 // Crea un nuevo anuncio
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('foto'), async (req, res, next) => {
   try {
-    const anuncioData = req.body;
+    const anuncioDataInicial = req.body;
+    const fotoInicial = req.file.path;
+    const foto = fotoInicial.slice(7);
+    const anuncioData = {...anuncioDataInicial, foto};
+    console.log('***********');
+    console.log(fotoInicial);
+    console.log(foto);
+    console.log('***********');
+    console.log(anuncioData);
 
     // creo un objeto de anuncio EN MEMORIA
     const anuncio = new Anuncio(anuncioData);
