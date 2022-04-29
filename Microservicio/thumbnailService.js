@@ -11,23 +11,20 @@ responder.on('crear-thumbnail', async (req, done) => {
   
   const { path } = req;
 
-  async function main() {
-    try {
-      // Leer la imagen
-      const image = await jimp.read(path);
+  try {
+    // Leer la imagen
+    const image = await jimp.read(path);
 
-      // Redimensionar la imagen a 100*100 px
-      await image.resize(100, 100);
+    // Redimensionar la imagen a 100*100 px
+    await image.resize(100, 100);
 
-      // Guardar y sobreescribir la imagen
-      await image.writeAsync(path);
+    // Guardar y sobreescribir la imagen
+    await image.writeAsync(path);
 
-    } catch (err) {
-      console.log(err);
-    }
+    done();
+
+  } catch (err) {
+    done({ message: err.message }, null);
   }
-
-  const resultado = await main();
-
-  done(resultado);
+  
 });

@@ -79,13 +79,14 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', upload.single('foto'), async (req, res, next) => {
   try {
     const anuncioDataInicial = req.body;
-    const foto = req.file.path;
+    const fotoInicial = req.file.path;
+    const foto = fotoInicial.slice(7);
     const anuncioData = {...anuncioDataInicial, foto};
 
     const evento = {
       type: 'crear-thumbnail',
       //parámetros
-      path: ('../Nodepop/' + req.file.path),
+      path: (process.env.MICROSERVICE_PATH + req.file.path),
     };
 
     console.log(Date.now(), 'pido la creación de un thumbnail');
