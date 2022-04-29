@@ -3,26 +3,31 @@
 // micro-servicio de creación de thumbnail
 
 const { Responder } = require('cote');
+const jimp = require("jimp");
 
-// almacén de datos del microservicio
-const rates = {
-  usd_eur: 0.89,
-  eur_usd: 1.11
-};
+const responder = new Responder({ name: 'servicio de creacion de thumbnail' });
 
-// lógica del microservicio
+responder.on('crear-thumbnail', async (req, done) => {
+  
+  const { path } = req;
 
-const responder = new Responder({ name: 'servicio de creacion de thumbnail'});
+  async function main() {
+    try {
+      // Leer la imagen
+      const image = await jimp.read(path);
 
-responder.on('crear-thumbnail', (req, done) => {
-  const { cantidad, desde, hacia } = req;
+      // Redimensionar la imagen a 100*100 px
+      await image.resize(100, 100);
 
-  console.log(Date.now(), 'servicio:', cantidad, desde, hacia);
+      // Guardar y sobreescribir la imagen
+      await image.writeAsync(path);
 
-  const rate = rates[`${desde}_${hacia}`];
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  const resultado = cantidad * rate;
+  const resultado = await main();
 
   done(resultado);
-
 });

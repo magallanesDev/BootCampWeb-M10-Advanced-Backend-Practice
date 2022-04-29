@@ -8,6 +8,11 @@ const Anuncio = require('../../models/Anuncio');
 
 const router = express.Router();
 
+// esta app necesita que otro servicio le cree los thumbnails
+const { Requester } = require('cote');
+const requester = new Requester({ name: 'app' });
+
+
 // GET  /api/anuncios
 // Devuelve lista de anuncios
 router.get('/', async (req, res, next) => {
@@ -74,20 +79,24 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', upload.single('foto'), async (req, res, next) => {
   try {
     const anuncioDataInicial = req.body;
-    const fotoInicial = req.file.path;
-    const foto = fotoInicial.slice(7);
+    const foto = req.file.path;
     const anuncioData = {...anuncioDataInicial, foto};
-    console.log('***********');
-    console.log(fotoInicial);
-    console.log(foto);
-    console.log('***********');
-    console.log(anuncioData);
+
+    const evento = {
+      type: 'crear-thumbnail',
+      //parámetros
+      path: ('../Nodepop/' + req.file.path),
+    };
+
+    console.log(Date.now(), 'pido la creación de un thumbnail');
+
+    requester.send(evento, resultado => {
+      console.log(Date.now(), 'app obtiene resultado:', resultado);
+    });
 
     // creo un objeto de anuncio EN MEMORIA
     const anuncio = new Anuncio(anuncioData);
-
     const anuncioGuardado = await anuncio.save();
-
     res.status(201).json({ result: anuncioGuardado });
 
   } catch (err) {
