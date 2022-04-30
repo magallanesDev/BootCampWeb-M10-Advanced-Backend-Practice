@@ -4,6 +4,15 @@
 ./bin/mongod --dbpath ./data/db
 ```
 
+## Microservicio de creación de thumbnails de tamaño 100*100 px
+Este microservicio sobreescribe la imagen original.
+Ejecutar en la carpeta del microservicio:
+
+```sh
+node thumbnailService.js
+```
+
+
 # Nodepop
 
 To start the application use:
@@ -38,7 +47,7 @@ Para inicializar la BD al estado inicial, se puede usar el comando:
 npm run initdb
 ```
 
-***ATENCIÓN*** - Esto borrará todos los datos de la BD y cargará el estado inicial, una muestra con 3 anuncios y 2 usuarios (user@example.com y admin@example.com).   
+***ATENCIÓN*** - Esto borrará todos los datos de la BD y cargará el estado inicial, una muestra con 3 anuncios (Bicicleta, iPhone 3GS e iPad Pro) y 2 usuarios (user@example.com y admin@example.com).   
 
 ## Métodos del API
 
@@ -79,6 +88,7 @@ Buscar un anuncio por ID:
 Crear un anuncio:
 
 - POST  /api/anuncios
+Para hacer el upload de la imagen, usar form-data para los datos del body. En el campo de la imagen elegir tipo file y seleccionar la imagen a subir.
 
 Eliminar un anuncio por ID:
 
@@ -113,4 +123,4 @@ Ordenación:
 
 Las imágenes de los anuncios están en la carpeta ./public/images/anuncios
 
-Podemos ver cada imagen haciendo una petición en la url http://localhost:3000/images/anuncios/<imagen.jpeg>
+Podemos ver cada imagen haciendo una petición en la url http://localhost:3000/images/anuncios/<imagen>

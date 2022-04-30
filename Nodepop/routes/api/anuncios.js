@@ -91,8 +91,8 @@ router.post('/', upload.single('foto'), async (req, res, next) => {
 
     console.log(Date.now(), 'pido la creación de un thumbnail');
 
-    requester.send(evento, resultado => {
-      console.log(Date.now(), 'app obtiene resultado:', resultado);
+    requester.send(evento,  resultado => {
+      resultado = console.log(Date.now(), 'app obtiene thumbnail 100*100px en la ruta ', fotoInicial+'_TN');
     });
 
     // creo un objeto de anuncio EN MEMORIA

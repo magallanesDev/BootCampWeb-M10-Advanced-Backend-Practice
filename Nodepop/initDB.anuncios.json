@@ -2,19 +2,19 @@
     "nombre": "Bicicleta", 
     "venta": true,
     "precio": 230.15,
-    "foto": "bici.jpeg",
+    "foto": "images/anuncios/bici.jpeg",
     "tags": [ "lifestyle", "motor"]
     }, {
     "nombre": "iPhone 3GS", 
     "venta": false,
     "precio": 50.00,
-    "foto": "iphone.jpeg",
+    "foto": "images/anuncios/iphone.jpeg",
     "tags": [ "lifestyle", "mobile"]
     }, {
     "nombre": "iPad Pro", 
     "venta": false,
     "precio": 475.00,
-    "foto": "ipad.jpeg",
+    "foto": "images/anuncios/ipad.jpeg",
     "tags": [ "work", "mobile", "lifestyle"]
     } ]
     

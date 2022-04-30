@@ -18,13 +18,13 @@ responder.on('crear-thumbnail', async (req, done) => {
     // Redimensionar la imagen a 100*100 px
     await image.resize(100, 100);
 
-    // Guardar y sobreescribir la imagen
-    await image.writeAsync(path);
+    // Guardar el thumbnail añadiendo el sufijo _TN para conservar la imagen original
+    await image.writeAsync(path + '_TN');
 
     done();
 
   } catch (err) {
     done({ message: err.message }, null);
   }
-  
+
 });

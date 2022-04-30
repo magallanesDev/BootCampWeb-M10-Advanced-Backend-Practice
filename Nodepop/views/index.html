@@ -17,6 +17,7 @@
     <h3> <%= __('AD LIST') %>:</h3>
     <p><% results.forEach( producto => { %> 
       <h4><%= producto.nombre %></h4>
+      <img src="http://localhost:3000/<%= producto.foto %>_TN">
       <ul>
         <li>
           <% if (producto.venta) { %>
