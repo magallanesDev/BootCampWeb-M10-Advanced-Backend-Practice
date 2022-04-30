@@ -5,11 +5,14 @@
 ```
 
 ## Microservicio de creación de thumbnails de tamaño 100*100 px
-Este microservicio sobreescribe la imagen original.
-Ejecutar en la carpeta del microservicio:
-
+El thumbnail se guarda en la misma carpeta que el upload de la imagen original y añadiendo el sufijo _TN al nombre.
+Para ejecutar el microservicio en producción:
 ```sh
 node thumbnailService.js
+```
+En desarrollo, mejor con nodemon para actualizar los cambios:
+```sh
+nodemon thumbnailService.js
 ```
 
 
@@ -88,7 +91,7 @@ Buscar un anuncio por ID:
 Crear un anuncio:
 
 - POST  /api/anuncios
-Para hacer el upload de la imagen, usar form-data para los datos del body. En el campo de la imagen elegir tipo file y seleccionar la imagen a subir.
+Para hacer el upload de la imagen, usar form-data para los datos del body. En el campo de la imagen elegir tipo file y seleccionar la imagen a subir. Se guardará en la carpeta ./public/images/anuncios
 
 Eliminar un anuncio por ID:
 
@@ -120,7 +123,8 @@ Ordenación:
 
 
 ## Imágenes de los anuncios
+Para ver las imágenes en su tamaño original pinchar en el enlace del campo foto de cada anuncio.
 
-Las imágenes de los anuncios están en la carpeta ./public/images/anuncios
+Las imágenes de los anuncios están guardadas en la carpeta ./public/images/anuncios
 
-Podemos ver cada imagen haciendo una petición en la url http://localhost:3000/images/anuncios/<imagen>
+También se pueden ver las imágenes haciendo una petición en la url http://localhost:3000/images/anuncios/<imagen>
