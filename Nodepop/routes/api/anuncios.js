@@ -2,11 +2,25 @@
 
 const express = require('express');
 const multer = require('multer');
-const upload = multer({ dest: './public/images/anuncios/' });
 const createError = require('http-errors');
 const Anuncio = require('../../models/Anuncio');
-
 const router = express.Router();
+
+// configuración multer
+const tiempoTranscurrido = Date.now();
+const hoy = new Date(tiempoTranscurrido);
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/anuncios/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, hoy.toISOString() + '-' + file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
 
 // esta app necesita que otro servicio le cree los thumbnails
 const { Requester } = require('cote');

@@ -91,7 +91,7 @@ Buscar un anuncio por ID:
 Crear un anuncio:
 
 - POST  /api/anuncios
-Para hacer el upload de la imagen, usar form-data para los datos del body. En el campo de la imagen elegir tipo file y seleccionar la imagen a subir. Se guardará en la carpeta ./public/images/anuncios
+Para hacer el upload de la imagen, usar form-data para los datos del body. En el campo de la imagen elegir tipo file y seleccionar la imagen a subir. Se guardará en la carpeta ./public/images/anuncios con un prefijo con la fecha y hora en formato ISO
 
 Eliminar un anuncio por ID:
 
@@ -127,4 +127,4 @@ Para ver las imágenes en su tamaño original pinchar en el enlace del campo fot
 
 Las imágenes de los anuncios están guardadas en la carpeta ./public/images/anuncios
 
-También se pueden ver las imágenes haciendo una petición en la url http://localhost:3000/images/anuncios/<imagen>
+También se pueden ver las imágenes haciendo una petición en la url http://localhost:3000/images/anuncios/<nombre_imagen>
