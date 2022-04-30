@@ -1,21 +1,20 @@
 'use strict';
 
 const express = require('express');
+const moment = require('moment');
 const multer = require('multer');
 const createError = require('http-errors');
 const Anuncio = require('../../models/Anuncio');
 const router = express.Router();
 
-// configuración multer
-const tiempoTranscurrido = Date.now();
-const hoy = new Date(tiempoTranscurrido);
 
+// configuración multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/images/anuncios/')
   },
   filename: function (req, file, cb) {
-    cb(null, hoy.toISOString() + '-' + file.originalname)
+    cb(null, moment().format() + '-' + file.originalname)
   }
 })
 
