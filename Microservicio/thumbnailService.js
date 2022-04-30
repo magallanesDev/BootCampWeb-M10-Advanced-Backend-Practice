@@ -3,12 +3,11 @@
 // micro-servicio de creación de thumbnail
 
 const { Responder } = require('cote');
-const jimp = require("jimp");
+const jimp = require('jimp');
 
 const responder = new Responder({ name: 'servicio de creacion de thumbnail' });
 
 responder.on('crear-thumbnail', async (req, done) => {
-  
   const { path } = req;
 
   try {
@@ -22,9 +21,7 @@ responder.on('crear-thumbnail', async (req, done) => {
     await image.writeAsync(path + '_TN');
 
     done();
-
   } catch (err) {
     done({ message: err.message }, null);
   }
-
 });
