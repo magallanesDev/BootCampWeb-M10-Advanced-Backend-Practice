@@ -31,28 +31,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 // Rutas de mi API
-app.post('/api/authenticate', loginController.postJWT)
+app.post('/api/authenticate', loginController.postJWT);
 app.use('/api/anuncios', jwtAuth, require('./routes/api/anuncios'));
 
-
 // Setup de i18n
-app.use(i18n.init)
+app.use(i18n.init);
 
 // Rutas de mi website
 app.use('/', indexRouter);
 app.use('/change-locale', require('./routes/change-locale'));
 
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-
+app.use(function (err, req, res, next) {
   // gestionando error de validación
   if (err.array) {
     // error de validación

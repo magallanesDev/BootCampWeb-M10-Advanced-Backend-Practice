@@ -5,12 +5,10 @@ var router = express.Router();
 
 const Anuncio = require('../models/Anuncio');
 
-
 /* GET home page. */
 
 router.get('/', async (req, res, next) => {
   try {
-    
     const nombre = req.query.nombre;
     const venta = req.query.venta;
     const precio = req.query.precio;
@@ -22,7 +20,7 @@ router.get('/', async (req, res, next) => {
     const filtros = {};
 
     if (nombre) {
-      filtros.nombre = new RegExp('^' + req.query.nombre, "i");;
+      filtros.nombre = new RegExp('^' + req.query.nombre, 'i');
     }
 
     if (venta) {
@@ -30,18 +28,16 @@ router.get('/', async (req, res, next) => {
     }
 
     if (precio) {
-      filtros.precio = precio
+      filtros.precio = precio;
     }
 
     if (tag) {
       filtros.tags = tag;
     }
 
-    
     const anuncios = await Anuncio.lista(filtros, skip, limit, sort);
 
     res.render('index', { results: anuncios });
-
   } catch (err) {
     next(err);
   }

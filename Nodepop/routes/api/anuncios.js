@@ -7,24 +7,21 @@ const createError = require('http-errors');
 const Anuncio = require('../../models/Anuncio');
 const router = express.Router();
 
-
 // configuración multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/images/anuncios/')
+    cb(null, './public/images/anuncios/');
   },
   filename: function (req, file, cb) {
-    cb(null, moment().format() + '-' + file.originalname)
-  }
-})
+    cb(null, moment().format() + '-' + file.originalname);
+  },
+});
 
-const upload = multer({ storage: storage })
-
+const upload = multer({ storage: storage });
 
 // esta app necesita que otro servicio le cree los thumbnails
 const { Requester } = require('cote');
 const requester = new Requester({ name: 'app' });
-
 
 // GET  /api/anuncios
 // Devuelve lista de anuncios
@@ -39,12 +36,15 @@ router.get('/', async (req, res, next) => {
     const select = req.query.select; // seleccionamos los campos deseados
     const sort = req.query.sort;
 
-    console.log('El usuario que ha hecho esta petición tiene el _id:', req.apiUserId);
+    console.log(
+      'El usuario que ha hecho esta petición tiene el _id:',
+      req.apiUserId,
+    );
 
     const filtros = {};
 
     if (nombre) {
-      filtros.nombre = new RegExp('^' + req.query.nombre, "i");;
+      filtros.nombre = new RegExp('^' + req.query.nombre, 'i');
     }
 
     if (venta) {
@@ -52,7 +52,7 @@ router.get('/', async (req, res, next) => {
     }
 
     if (precio) {
-      filtros.precio = precio
+      filtros.precio = precio;
     }
 
     if (tag) {
@@ -61,8 +61,7 @@ router.get('/', async (req, res, next) => {
 
     const anuncios = await Anuncio.lista(filtros, skip, limit, select, sort);
 
-    res.json({ results: anuncios })
-
+    res.json({ results: anuncios });
   } catch (err) {
     next(err);
   }
@@ -94,29 +93,32 @@ router.post('/', upload.single('foto'), async (req, res, next) => {
     const anuncioDataInicial = req.body;
     const fotoInicial = req.file.path;
     const foto = fotoInicial.slice(7);
-    const anuncioData = {...anuncioDataInicial, foto};
+    const anuncioData = { ...anuncioDataInicial, foto };
 
     const evento = {
       type: 'crear-thumbnail',
       //parámetros
-      path: (process.env.MICROSERVICE_PATH + req.file.path),
+      path: process.env.MICROSERVICE_PATH + req.file.path,
     };
 
     console.log(Date.now(), 'pido la creación de un thumbnail');
 
-    requester.send(evento,  resultado => {
-      resultado = console.log(Date.now(), 'app obtiene thumbnail 100*100px en la ruta ', fotoInicial+'_TN');
+    requester.send(evento, resultado => {
+      resultado = console.log(
+        Date.now(),
+        'app obtiene thumbnail 100*100px en la ruta ',
+        fotoInicial + '_TN',
+      );
     });
 
     // creo un objeto de anuncio EN MEMORIA
     const anuncio = new Anuncio(anuncioData);
     const anuncioGuardado = await anuncio.save();
     res.status(201).json({ result: anuncioGuardado });
-
   } catch (err) {
     next(err);
   }
-})
+});
 
 // DELETE  /api/anuncios/id
 // Elimina un anuncio
@@ -128,10 +130,9 @@ router.delete('/:id', async (req, res, next) => {
 
     res.json();
   } catch (err) {
-    next(err)
+    next(err);
   }
-
-})
+});
 
 // PUT  /api/anuncios/id
 // Modifica un anuncio
@@ -140,10 +141,10 @@ router.put('/:id', async (req, res, next) => {
     const id = req.params.id;
     const anuncioData = req.body;
 
-    let anuncioActualizado
+    let anuncioActualizado;
     try {
       anuncioActualizado = await Anuncio.findByIdAndUpdate(id, anuncioData, {
-        new: true // esta opción sirve para que nos devuelva el estado final del documento
+        new: true, // esta opción sirve para que nos devuelva el estado final del documento
       });
     } catch (err) {
       next(createError(422, 'invalid id'));

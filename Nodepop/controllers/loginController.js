@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { Usuario } = require('../models');
 
 class LoginController {
-  
   // login post desde API que retorna JWT
   async postJWT(req, res, next) {
     try {

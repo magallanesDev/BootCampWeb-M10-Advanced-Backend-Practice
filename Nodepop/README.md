@@ -4,18 +4,6 @@
 ./bin/mongod --dbpath ./data/db
 ```
 
-## Microservicio de creación de thumbnails de tamaño 100*100 px
-El thumbnail se guarda en la misma carpeta que el upload de la imagen original y añadiendo el sufijo _TN al nombre.
-Para ejecutar el microservicio en producción:
-```sh
-node thumbnailService.js
-```
-En desarrollo, mejor con nodemon para actualizar los cambios:
-```sh
-nodemon thumbnailService.js
-```
-
-
 # Nodepop
 
 To start the application use:
