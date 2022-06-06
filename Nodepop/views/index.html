@@ -16,7 +16,7 @@
     <h3> <%= __('AD LIST') %>:</h3>
     <p><% results.forEach( producto => { %> 
       <h4><%= producto.nombre %></h4>
-      <img src="http://localhost:3000/<%= producto.foto %>_TN">
+      <img src="<%= producto.foto %>_TN">
       <ul>
         <li>
           <% if (producto.venta) { %>
@@ -28,7 +28,7 @@
         </li>
 
         <li>Precio: <%= producto.precio %>€</li>
-        <li>Foto: <a href="http://localhost:3000/<%= producto.foto %>">http://localhost:3000/<%= producto.foto %></a> </li>
+        <li>Foto: <a href="<%= producto.foto %>"><%= producto.foto %></a> </li>
         <li>Tags: <% producto.tags.forEach( (tag, i) => { %> 
           
           <% if  (i+1 < producto.tags.length) { %>
